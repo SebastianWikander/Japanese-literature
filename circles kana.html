@@ -1,0 +1,161 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <style>
+      body {
+        margin: 10px;
+        padding: 10px;
+      }
+      #myCanvas {
+        border: 1px solid #9C9898;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="myCanvas" width="600" height="800"></canvas>
+    <script>
+			var data = [["あ",883],
+									["い",3330],
+									["う",1938],
+									["え",491],
+									["お",947],
+									["か",2397],
+									["が",1871],
+									["き",593],
+									["ぎ",86],
+									["く",1063],
+									["ぐ",167],
+									["け",522],
+									["げ",137],
+									["こ",897],
+									["ご",138],
+									["さ",526],
+									["ざ",81],
+									["し",1974],
+									["じ",388],
+									["す",763],
+									["ず",189],
+									["せ",303],
+									["ぜ",69],
+									["そ",650],
+									["ぞ",66],
+									["た",2491],
+									["だ",1495],
+									["ち",466],
+									["ぢ",1],
+									["っ",2018],
+									["つ",575],
+									["づ",25],
+									["て",2515],
+									["で",1372],
+									["と",2148],
+									["ど",419],
+									["な",2603],
+									["に",1768],
+									["ぬ",82],
+									["ね",157],
+									["の",2639],
+									["は",1786],
+									["ば",342],
+									["ぱ",40],
+									["ひ",109],
+									["び",95],
+									["ぴ",19],
+									["ふ",117],
+									["ぶ",93],
+									["ぷ",12],
+									["へ",469],
+									["べ",90],
+									["ぺ",13],
+									["ほ",119],
+									["ぼ",89],
+									["ぽ",48],
+									["ま",1034],
+									["み",290],
+									["む",114],
+									["め",321],
+									["も",1353],
+									["ゃ",342],
+									["や",538],
+									["ゅ",80],
+									["ゆ",68],
+									["ょ",256],
+									["よ",507],
+									["ら",1864],
+									["り",1025],
+									["る",1915],
+									["れ",1413],
+									["ろ",440],
+									["わ",355],
+									["を",1529],
+									["ん",1555]];
+									
+			var canvas = document.getElementById('myCanvas');
+      var context = canvas.getContext('2d');
+      var centerX = canvas.width / 2;
+      var centerY = canvas.height / 2;
+			var size = 12;
+			
+			var sum = 0;
+			for (var i = 0; i < data.length; i++) {
+				sum = sum + data[i][1];
+			}
+			noCircles = canvas.height*canvas.width/size*size;
+			for (var i = 0; i < data.length; i++) {
+				data[i][2] = Math.round((data[i][1]/sum*1600)*noCircles);
+			}
+			
+			var circles = new Array();
+			for (var i = 0; i < canvas.width/size; i++) {
+				for (var j = 0; j < canvas.height/size; j++) {
+					circles.push(new circle(size/2+i*size, size/2+j*size, data[0][0], "#"+(255).toString(16)+(210).toString(16)+(210-i).toString(16)));
+				}
+			}
+			
+			function circle(x, y, letter, color) {
+				this.x = x;
+				this.y = y;
+				this.radius = size/2;
+				this.letter = letter;
+				this.originalColor = color;
+				this.color = color;
+				
+				var self = this;
+				
+				function getMousePos(canvas, e) {
+					var rect = canvas.getBoundingClientRect();
+					return {
+						x: e.clientX - rect.left,
+						y: e.clientY - rect.top
+					};
+				}
+
+				canvas.addEventListener('mousemove', function(e) {
+					var mousePos = getMousePos(canvas, e);
+					if ((mousePos.x-self.x)*(mousePos.x-self.x)+(mousePos.y-self.y)*(mousePos.y-self.y) < self.radius*self.radius)
+						{ self.color = "lightblue"; }
+					else
+						{ self.color = self.originalColor; }					
+				}, false);
+				
+				this.draw_circle = draw_circle;
+				function draw_circle() {
+					context.beginPath();
+					context.arc(this.x, this.y, this.radius, 0, 2 * Math.PI, false);
+					context.fillStyle = this.color;
+					context.fill();
+				}
+			}
+
+			function refreshCanvas() {
+					context.clearRect(0, 0, canvas.width, canvas.height);
+					for(var i = 0; i < circles.length; i++) {
+						circles[i].draw_circle();
+					}
+			}
+		
+			var refresh = setInterval("refreshCanvas()", 30);			
+    </script>
+  </body>
+</html>

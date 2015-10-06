@@ -1,0 +1,87 @@
+/* Reset */
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+  	font: inherit;
+	vertical-align: baseline;
+}
+
+footer,
+header,
+nav,
+section {
+  display: block;
+}
+
+/* Body */
+body {
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-size: 12px; color: #282828;
+	background-image: url('../img/background.png'); }
+
+.container {
+	max-width: 900px;
+	margin-right: auto; margin-left: auto; }
+.container:after {
+	clear: both; }
+	
+p { font-size: 14px; color: #282828; text-shadow: 0px 1px 1px #fefefe; margin-bottom: 12px; }
+a { font-size: 14px; color: #ec4a34; text-shadow: 0px 1px 1px #fefefe; text-decoration: none; }
+
+
+header h1 { top: 0px; left: 20px;
+	font-size: 45px; font-weight: 700; position: absolute;
+	margin-top: 280px; text-shadow: 0px 1px 1px #fefefe; }
+h2 { font-size: 30px !important; font-weight: 600; text-shadow: 0px 1px 1px #fefefe; }
+h3 { font-size: 25px; font-weight: 700;	text-shadow: 0px 1px 1px #fefefe; }
+
+.description { padding: 5px; }
+
+.img-container { 
+	position: relative;
+	width: 100%; }
+
+.map { 
+	width: 100%; }
+
+.color {  }
+.location { 
+	left: 0px; top: 0px;
+	position: absolute; 
+	opacity: 0; }
+
+.positions { 	
+	-moz-border-radius: 2px;
+	border-radius: 2px;
+	-moz-box-shadow: 0px 0px 3px #909090;
+	-webkit-box-shadow: 0px 0px 3px #909090;
+	box-shadow: 0px 0px 3px #909090; }
+
+.row-fluid {
+	margin-top: 20px; margin-bottom: 20px; }
+
+#myCanvas {
+	position: relative;
+	opacity: 0.3;
+}
+
+header {
+	width: 900px; height: 400px; position: relative; }
+
+section {
+	padding: 60px 0px 0px 0px; }
+	

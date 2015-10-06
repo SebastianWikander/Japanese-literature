@@ -1,0 +1,118 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<title>Hiragana frequency analysis</title>
+	<link rel="shortcut icon" href="{Favicon}">
+	<link rel="alternate" type="application/rss+xml" href="{RSS}">
+
+	<link href="css/bootstrap.css" rel="stylesheet">
+	<link rel="stylesheet" href="css/stylesheet.css" type="text/css" media="screen">
+	<link rel="stylesheet" href="css/footer.css" type="text/css" media="all">
+
+	<script src="js/jquery.js" ></script>
+	<script src="js/functions.js" ></script>
+	<script src="js/data.js" ></script>
+
+	<meta name="description" content="" />
+	<meta http-equiv="Content-Type" content="text/ html; charset=UTF-8" />
+</head>
+<body>
+
+	<div class="container">
+		<div class="row-fluid">
+			<div class="span12">
+				<header>
+					<canvas id="myCanvas" width="900" height="400"></canvas>
+				</header>
+			</div>
+		</div>
+		<div class="row-fluid">
+			<div class="span4">
+				<p>Started as a project to map frequently occuring characters in the Japanese language using the open source library Aozora Bunko.<br/>
+
+				</p>
+			</div>
+			<div class="span4">
+				<p>
+				The graphical representation is not exact becasue the the growth rate of the circles in the canvas above is regulated by the number of times the character appear in the book. The more frequent characters grow faster then those with a lesser frequency but only if there are no other circles touching it. This means that some frquent characters might be smaller than they actually should be. <p/>
+			</div>
+			<div class="span4">
+				<p>
+				The exact number of times a specific charater appear can seen in the table below.<br/>
+
+				This is coming from one book and cannot speak for an entire language but it does give a hint of how much certain characters are used.</p>
+				<p>On an interesting sidenote, the distribution of the characters roughly follow the 20-80 rule that is often used in economical works and sais that 20 percent of the products. In this case top 20 percent of the characters (342字) are used roughly 80 percent (75.2%) of the time. It would be interesting to examine how this holds up on larger datasets.</p>
+			</div>
+		</div>
+		<div class="row-fluid">
+			<div class="span12">
+				<table class="table table-hover table-condensed">
+					<thead>
+						<tr>
+							<th>Character</th>
+							<th>Frequency</th>
+							<th>Character</th>
+							<th>Frequency</th>
+							<th>Character</th>
+							<th>Frequency</th>
+							<th>Character</th>
+							<th>Frequency</th>
+							<th>Character</th>
+							<th>Frequency</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr><td>い</td><td>3330</td><td>ん</td><td>1555</td><td>つ</td><td>575</td><td>せ</td><td>303</td><td>ぼ</td><td>89</td></tr>
+						<tr><td>の</td><td>2639</td><td>を</td><td>1529</td><td>や</td><td>538</td><td>み</td><td>290</td><td>ぎ</td><td>86</td></tr>
+						<tr><td>な</td><td>2603</td><td>だ</td><td>1495</td><td>さ</td><td>526</td><td>ょ</td><td>256</td><td>ぬ</td><td>82</td></tr>
+						<tr><td>て</td><td>2515</td><td>れ</td><td>1413</td><td>け</td><td>522</td><td>ず</td><td>189</td><td>ざ</td><td>81</td></tr>
+						<tr><td>た</td><td>2491</td><td>で</td><td>1372</td><td>よ</td><td>507</td><td>ぐ</td><td>167</td><td>ゅ</td><td>80</td></tr>
+						<tr><td>か</td><td>2397</td><td>も</td><td>1353</td><td>え</td><td>491</td><td>ね</td><td>157</td><td>ぜ</td><td>69</td></tr>
+						<tr><td>と</td><td>2148</td><td>く</td><td>1063</td><td>へ</td><td>469</td><td>ご</td><td>138</td><td>ゆ</td><td>68</td></tr>
+						<tr><td>っ</td><td>2018</td><td>ま</td><td>1034</td><td>ち</td><td>466</td><td>げ</td><td>137</td><td>ぞ</td><td>66</td></tr>
+						<tr><td>し</td><td>1974</td><td>り</td><td>1025</td><td>ろ</td><td>440</td><td>ほ</td><td>119</td><td>ぽ</td><td>48</td></tr>
+						<tr><td>う</td><td>1938</td><td>お</td><td>947</td><td>ど</td><td>419</td><td>ふ</td><td>117</td><td>ぱ</td><td>40</td></tr>
+						<tr><td>る</td><td>1915</td><td>こ</td><td>897</td><td>じ</td><td>388</td><td>む</td><td>114</td><td>づ</td><td>25</td></tr>
+						<tr><td>が</td><td>1871</td><td>あ</td><td>883</td><td>わ</td><td>355</td><td>ひ</td><td>109</td><td>ぴ</td><td>19</td></tr>
+						<tr><td>ら</td><td>1864</td><td>す</td><td>763</td><td>ば</td><td>342</td><td>び</td><td>95</td><td>ぺ</td><td>13</td></tr>
+						<tr><td>は</td><td>1786</td><td>そ</td><td>650</td><td>ゃ</td><td>342</td><td>ぶ</td><td>93</td><td>ぷ</td><td>12</td></tr>
+						<tr><td>に</td><td>1768</td><td>き</td><td>593</td><td>め</td><td>321</td><td>べ</td><td>90</td><td>ぢ</td><td>1</td></tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+	<footer>
+		<div class="container">
+			<div class="row-fluid">
+				<div class="span4">
+					<h1>Contact</h1>
+
+				</div>
+				<div class="span4">
+					<h1>Information</h1>
+					<p>This page and everything you see on it is made with love by <a href="http://sebastianwikander.se">Sebastian Wikander</a>.<br/><br/></p>
+				</div>
+				<div class="span4">
+					<h1>Contact</h1>
+					<p>Twitter: <a href="http://twitter.com/Prosit">@Prosit</a></p>
+					<p>Blog: <a href="http://blog.sebastianwikander.se">blog.sebastianwikander.se</a></p>
+				</div>
+			</div>
+		</div>
+	</footer>
+
+<script>
+var canvas = document.getElementById('myCanvas');
+var context = canvas.getContext('2d');
+
+// var hiragana = new circles(canvas, context, data);
+var kanji = new circles(canvas, context, data2);
+
+var refresh = setInterval(function() {
+	context.clearRect(0, 0, canvas.width, canvas.height);
+	kanji.update();
+}, 30);
+</script>
+  </body>
+</html>

@@ -1,0 +1,227 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <style>
+      body {
+        margin: 10px;
+        padding: 10px;
+      }
+      #myCanvas {
+        border: 1px solid #9C9898;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="myCanvas" width="600" height="800"></canvas>
+    <script>
+			var data = [["あ",883],
+									["い",3330],
+									["う",1938],
+									["え",491],
+									["お",947],
+									["か",2397],
+									["が",1871],
+									["き",593],
+									["ぎ",86],
+									["く",1063],
+									["ぐ",167],
+									["け",522],
+									["げ",137],
+									["こ",897],
+									["ご",138],
+									["さ",526],
+									["ざ",81],
+									["し",1974],
+									["じ",388],
+									["す",763],
+									["ず",189],
+									["せ",303],
+									["ぜ",69],
+									["そ",650],
+									["ぞ",66],
+									["た",2491],
+									["だ",1495],
+									["ち",466],
+									["ぢ",1],
+									["っ",2018],
+									["つ",575],
+									["づ",25],
+									["て",2515],
+									["で",1372],
+									["と",2148],
+									["ど",419],
+									["な",2603],
+									["に",1768],
+									["ぬ",82],
+									["ね",157],
+									["の",2639],
+									["は",1786],
+									["ば",342],
+									["ぱ",40],
+									["ひ",109],
+									["び",95],
+									["ぴ",19],
+									["ふ",117],
+									["ぶ",93],
+									["ぷ",12],
+									["へ",469],
+									["べ",90],
+									["ぺ",13],
+									["ほ",119],
+									["ぼ",89],
+									["ぽ",48],
+									["ま",1034],
+									["み",290],
+									["む",114],
+									["め",321],
+									["も",1353],
+									["ゃ",342],
+									["や",538],
+									["ゅ",80],
+									["ゆ",68],
+									["ょ",256],
+									["よ",507],
+									["ら",1864],
+									["り",1025],
+									["る",1915],
+									["れ",1413],
+									["ろ",440],
+									["わ",355],
+									["を",1529],
+									["ん",1555]];
+			var sum = 0;
+			for (var i = 0; i < data.length; i++) {
+				sum = sum + data[i][1];
+			}
+			for (var i = 0; i < data.length; i++) {
+				data[i][1] = data[i][1]/sum*1600;
+			}
+			var min_radius = 10; 
+      var canvas = document.getElementById('myCanvas');
+      var context = canvas.getContext('2d');
+      var centerX = canvas.width / 2;
+      var centerY = canvas.height / 2;
+			
+			canvas_area = canvas.height*canvas.width;
+			console.log(canvas_area);
+			var circles = new Array();
+			for (var i = 0; i < data.length; i++) {
+				circles.push(new circle(Math.random()*canvas.width, Math.random()*canvas.height, 10, data[i][0], "#"+(255).toString(16)+(210-i*2).toString(16)+(210-i*2).toString(16)));
+			}
+			
+			function circle(x, y, radius, letter, color) {
+				this.x = x;
+				this.y = y;
+				this.radius = radius;
+				this.letter = letter;
+				this.originalColor = color;
+				this.color = color;
+				
+				var self = this;
+				
+				this.move = move;
+				function move(x,y) {
+					self.x = self.x + x
+					self.y = self.y + y
+				}
+				
+				this.grow = grow;
+				function grow() {
+					self.radius = self.radius + 1;
+					self.detectBorderCollision();
+				}
+				
+				function getMousePos(canvas, e) {
+					var rect = canvas.getBoundingClientRect();
+					return {
+						x: e.clientX - rect.left,
+						y: e.clientY - rect.top
+					};
+				}
+
+				canvas.addEventListener('mousemove', function(e) {
+					var mousePos = getMousePos(canvas, e);
+					if ((mousePos.x-self.x)*(mousePos.x-self.x)+(mousePos.y-self.y)*(mousePos.y-self.y) < self.radius*self.radius)
+						{ self.color = "lightblue"; }
+					else
+						{ self.color = self.originalColor; }					
+				}, false);
+				
+				this.draw_circle = draw_circle;
+				function draw_circle() {
+					context.beginPath();
+					context.arc(this.x, this.y, this.radius, 0, 2 * Math.PI, false);
+					context.fillStyle = this.color;
+					context.fill();
+			 	
+					context.font = "bold " + this.radius + "px Helvetica";
+					context.fillStyle = "#fff";
+					context.textBaseline = "middle";
+					context.fillText(this.letter, this.x - this.radius/2, this.y);
+				}
+				
+				this.detectBorderCollision = detectBorderCollision;
+				function detectBorderCollision() {
+					var x = (self.x - self.radius < 0)?(1):((self.x + self.radius > canvas.width)?(-1):(0))
+					var y = (self.y - self.radius < 0)?(1):((self.y + self.radius > canvas.height)?(-1):(0))
+					self.move(x,y);
+				}
+				
+				function normalize(x,y){
+					var xSign = (x < 0)?(-1):(1);
+					var ySign = (y < 0)?(-1):(1);
+					return {
+						x: xSign * Math.round(1%x),
+						y: ySign * Math.round(1%y)
+					};
+				}
+				
+				this.detectCollision = detectCollision;
+				function detectCollision(circle) {
+					var dx = self.x - circle.x;
+					var dy = self.y - circle.y;
+					var rad = self.radius + circle.radius;
+					if((dx * dx)  + (dy * dy) < rad * rad) {
+						direction = normalize(dx,dy);
+						self.move(direction.x, direction.y);
+					}
+				}
+			}
+			
+			function checkCollision(){
+				for(var i = 0; i < circles.length; i++){
+					for(var j = 0; j < circles.length; j++){
+						if(i != j) {
+								circles[i].detectBorderCollision();
+								circles[i].detectCollision(circles[j]);
+								circles[j].detectCollision(circles[i]);
+								circles[i].detectCollision(circles[j]);
+								circles[j].detectCollision(circles[i]);
+						}
+					}
+				}
+			}
+
+			var j = 0; 
+			function refreshCanvas() {
+					context.clearRect(0, 0, canvas.width, canvas.height);
+					for(var i = 0; i < circles.length; i++) {
+						if(j < 1600){
+							checkCollision();
+							if(circles[i].radius < data[i][1])
+							circles[i].grow();
+						}
+					}
+					for(var i = 0; i < circles.length; i++) {
+						circles[i].draw_circle();
+					}
+					j++;
+			}
+		
+			var refresh = setInterval("refreshCanvas()", 30);
+			
+			
+    </script>
+  </body>
+</html>

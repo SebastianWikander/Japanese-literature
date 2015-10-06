@@ -1,0 +1,14 @@
+/* Footer */
+footer h1 { font-size: 14px; font-weight: bold; text-align: left; color: #282828; text-shadow: 0px 1px 1px #ebebeb;  line-height: 16px; }
+footer p { font-size: 12px; color: #282828; text-shadow: 0px 1px 1px #ebebeb; line-height: 14px; }
+footer a { font-size: 12px; color: #ec4a34; text-shadow: 0px 1px 1px #ebebeb; }
+
+footer {
+	min-height: 150px;
+	width: 100%;
+	background-image: url(../img/footer-background.png);
+	padding: 5px 0px 5px 0px; 
+	margin: 40px 0px 0px 0px; }
+
+footer .logo {
+	width: 100%; }
